@@ -6,7 +6,8 @@ import { X } from "lucide-react";
 import { headerData } from "@/constant";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { SocialMedia } from "./SocialMedia";
+import SocialMedia from "./SocialMedia";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -15,17 +16,19 @@ interface SidebarProps {
 
 export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const pathname = usePathname();
+  const SidebarRef = useOutsideClick<HTMLDivElement>(onClose);
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-50 bg-[#52525b]/50 shadow-xl hoverEffect w-full ${
+      className={`fixed inset-y-0 left-0 z-50 bg-[#52525b]/50 shadow-xl cursor-auto hoverEffect w-full ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        ref={SidebarRef}
         transition={{ duration: 0.4, delay: 0.3 }}
-        className="min-w-72 max-w-96 bg-[#52525b] text-white/70 h-full px-6 pt-8 border-r border-r-red-500 flex flex-col gap-6"
+        className="min-w-72 max-w-96 bg-[#52525b] text-white/70 h-full px-6 pt-8  flex flex-col gap-6"
       >
         <div className="flex items-center justify-between">
           <button onClick={onClose}>
@@ -53,7 +56,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
               <div key={item?.title}>
                 <Link
                   onClick={onClose}
-                  className={`hover:text-white hoverEffect  ${
+                  className={`hover:text-white hoverEffect ${
                     pathname === item?.href && "text-white"
                   }`}
                   href={item?.href}
@@ -65,7 +68,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             );
           })}
         </div>
-        <SocialMedia/>
+        <SocialMedia />
       </motion.div>
     </div>
   );
