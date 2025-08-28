@@ -14,7 +14,7 @@ const raleway = localFont({
 
 export const metadata: Metadata = {
   title: "Cromy",
-  description: "An ecommerce web for buy jeans purpose ",
+  description: "An ecommerces web for buy jeans purpose ",
 };
 
 export default function RootLayout({
