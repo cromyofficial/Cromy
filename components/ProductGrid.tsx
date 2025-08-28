@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import HomeTabBar from "./HomeTabBar";
 import { productType } from "@/constant";
 import { client } from "@/sanity/lib/client";
-import { Product, PRODUCTS_QUERYResult } from "@/sanity.types";
+import { Product } from "@/sanity.types";
 import ProductCard from "./ProductCard";
 import NoProductAvailable from "./NoProductAvailable";
 import { motion, AnimatePresence } from "motion/react";
 import { Loader2 } from "lucide-react";
 
 export const ProductGrid = () => {
-  const [products, setProducts] = useState<PRODUCTS_QUERYResult>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+
   const [loading, setLoading] = useState(false);
   const [selectedTab, setSelectTab] = useState(productType[0]?.title || "");
   const query = `*[_type == "product" && variant == $variant] | order(name asc)`;
