@@ -12,7 +12,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         href={`/product/${product?.slug?.current}`}
         className="group text-sm rounded-lg overflow-hidden block"
       >
-       <div className="overflow-hidden rounded-lg relative">
+       <div className="overflow-hidden relative">
   {product?.images && (
     <Image
       src={urlFor(product.images[0]).url()}
@@ -31,7 +31,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           <h2 className="text-base line-clamp-1">{product?.name}</h2>
           <p className="truncate">{product?.intro}</p>
           <PriceView
-            className="text-lg"
+            className="text-sm"
             price={product?.price}
             discount={product?.discount}
           />

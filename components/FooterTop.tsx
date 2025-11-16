@@ -61,7 +61,7 @@ interface ContactItemProps {
 
 const ContactItem = ({ icon, title, content }: ContactItemProps) => {
   return (
-    <div className="flex items-center gap-3 group hover:bg-gray-50 p-4 transition-colors">
+    <div className="flex items- gap-3 group hover:bg-gray-50 pt-4 md:p-4 transition-colors">
       {icon}
       <div>
         <h3 className="font-semibold text-gray-900 group-hover:text-darkColor transition-colors">

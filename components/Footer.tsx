@@ -11,7 +11,7 @@ export const Footer = () => {
   return (
     <footer className="bg-white ">
       <Container>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
+      <div className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-0">
         {/* Top section with contact info */}
         <FooterTop />
 
@@ -20,8 +20,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <Logo>Cromy</Logo>
             <p className="text-gray-600 text-sm">
-              Discover curated furniture collections at Cromy, blending style
-              and comfort to elevate your living spaces.
+              Premium jeans crafted with superior denim, lasting comfort, and timeless style for every lifestyle.
             </p>
             <SocialMedia
               className="text-darkColor/60"
@@ -62,7 +61,7 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h3 className="font-semibold text-gray-900 mb-4">Newsletter</h3>
             <p className="text-gray-600 text-sm mb-4">
               Subscribe to our newsletter to receive updates and exclusive
@@ -82,7 +81,7 @@ export const Footer = () => {
                 Subscribe
               </button>
             </form>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom copyright section */}
