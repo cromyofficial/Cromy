@@ -10,7 +10,7 @@ interface ContactItemData {
 const data: ContactItemData[] = [
   {
     title: "Visit Us",
-    subtitle: "6231/6, gali no.1, clubmen gali,dev nagar,karol bagh, Delhi-110005",
+    subtitle: "H NO-B-13/141, KHASRA NO.10, KABIR NAGAR, DELHI, North East Delhi, Delhi, 110094",
     icon: (
       <MapPin className="h-6 w-6 text-gray-600 group-hover:text-darkColor transition-colors" />
     ),
