@@ -154,7 +154,7 @@ const CartPage = () => {
                 <h1 className="text-2xl font-semibold">Shopping Cart</h1>
               </div>
 
-              <div className="grid lg:grid-cols-3 md:gap-8">
+              <div className=" md:grid lg:grid-cols-3 md:gap-8 lg:grid ">
                 {/* Product Section */}
                 <div className="lg:col-span-2 rounded-lg">
                   <div className="border bg-white rounded-md">
@@ -163,9 +163,9 @@ const CartPage = () => {
                       return (
                         <div
                           key={product?._id}
-                          className="border-b p-2.5 last:border-b-0 flex items-center justify-between gap-5"
+                          className="border-b p-2.5 last:border-b-0 flex flex-col md:flex-row md:items-center justify-between gap-3"
                         >
-                          <div className="flex flex-1 items-center gap-2 h-36 md:h-44">
+                          <div className="flex flex-col md:flex-row flex-1 items-start md:items-center gap-3 mt-2 md:mt-auto lg:auto">
                             {product?.images && (
                               <Link
                                 href={`/product/${product?.slug?.current}`}
