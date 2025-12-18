@@ -33,11 +33,18 @@ const SingleProductPage = async ({
             />
           </div>
 
-          {product?.stock && (
+       <div className="flex items-center justify-between">  {product?.stock && (
             <p className="bg-green-100 w-24 text-center text-green-600 text-sm py-2.5 font-semibold rounded-lg">
               In Stock
             </p>
-          )}
+          )} 
+            <span className="flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm">
+    Size
+    <span className="rounded-md bg-gray-900 px-2 py-0.5 text-xs font-semibold text-white">
+      XL
+    </span>
+  </span>
+          </div> 
 
           <p className="text-sm text-gray-600 tracking-wide">{product?.description}</p>
 
