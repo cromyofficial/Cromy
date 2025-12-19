@@ -82,7 +82,7 @@ const SingleProductPage = async ({
           <div className="flex md:flex-wrap items-center gap-5">
             <div className="border border-darkBlue/20 text-center p-3 hover:border-darkBlue/50 rounded-md hoverEffect">
               <p className="text-base font-semibold text-[#151515]">Free Shipping</p>
-              <p className="text-sm text-gray-500">Free Shipping over order $120</p>
+              <p className="text-sm text-gray-500">Free Shipping over order ₹120</p>
             </div>
 
             <div className="border border-darkBlue/20 text-center p-3 hover:border-darkBlue/50 rounded-md hoverEffect">

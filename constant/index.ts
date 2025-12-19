@@ -38,31 +38,31 @@ export const categoriesData = [
   // { title: "Others", href: "/others" },
 ];
 export const faqsData = [
-  {
-    question: "What services does Cromy offer?",
+ {
+    question: "What fabrics do you use in your jeans?",
     answer:
-      "Cromy offers a wide range of technology solutions including custom software development, cloud services, and digital transformation consulting.",
+      "We use high-grade denim blends, mainly cotton with controlled stretch fibers for comfort. Our fabrics are sourced from trusted mills and tested for durability."
   },
   {
-    question: "How can I get support for Cromy products?",
+    question: "Are your jeans long-lasting?",
     answer:
-      "You can reach our support team through our contact page or by emailing support@cromy.com.",
+      "Yes. Each pair is stitched with reinforced seams, stable dyes, and abrasion-tested denim so the fabric holds up to daily wear."
   },
   {
-    question: "Does Cromy offer training for its products?",
+    question: "Do the jeans lose color after wash?",
     answer:
-      "Yes, we offer comprehensive training programs for all our products and services. Please contact our sales team for more information.",
+      "All denim naturally fades over time, but we use quality dyes and controlled wash processes to slow fading. Follow the wash-care instructions to keep the shade rich."
   },
   {
-    question: "What industries does Cromy serve?",
+    question: "Is the fabric comfortable for all-day use?",
     answer:
-      "Cromy serves a wide range of industries including finance, healthcare, retail, and manufacturing.",
+      "Our denim is engineered for mobility and breathability. The blend creates a firm structure with easy movement so you can wear it all day without stiffness."
   },
   {
-    question: "How does Cromy ensure data security?",
+    question: "How do you maintain fabric standards?",
     answer:
-      "We employ industry-standard security measures and comply with all relevant data protection regulations to ensure the security of our clients' data.",
-  },
+      "Every batch is inspected for weave quality, stretch recovery, shrinkage control, and color stability before production."
+  }
 ];
 
 
