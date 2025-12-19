@@ -26,7 +26,7 @@ export const ProductGrid = () => {
       try {
         const response = await client.fetch(queryfinal,params);
         setProducts(await response);
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log("Product fetching Error", error);
       } finally {
@@ -34,8 +34,8 @@ export const ProductGrid = () => {
       }
     };
     fetchData();
-    console.log("trail1",selectedTab);
-    console.log("trail2",params);
+    // console.log("trail1",selectedTab);
+    // console.log("trail2",params);
     
   }, [selectedTab]);
   return (

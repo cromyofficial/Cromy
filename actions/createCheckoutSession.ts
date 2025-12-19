@@ -72,7 +72,7 @@ export async function createCheckoutSession(
     // return session.url;
 
     // Temporary placeholder until payment is enabled
-    console.log("createCheckoutSession called", items, metadata);
+    // console.log("createCheckoutSession called", items, metadata);
     return "/success"; // temporary success redirect for testing
   } catch (error) {
     console.error("Error creating checkout session:", error);
