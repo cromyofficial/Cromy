@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPhonePeOrderStatus } from "@/lib/phonepe.ts";
+import { getPhonePeOrderStatus } from "@/lib/phonepe";
 
 export async function GET(req: NextRequest) {
   const merchantOrderId = req.nextUrl.searchParams.get("merchantOrderId");
