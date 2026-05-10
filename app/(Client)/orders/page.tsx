@@ -20,9 +20,9 @@ const Orderspage = async() => {
   }
   const orders = await getMyOrders(userId);
 
-  return( 
+  return(
   <Container className="py-10">
-    {!orders?.length ? (
+    {orders?.length ? (
       <Card className="w-full">
         <CardHeader>
             <CardTitle className="text-2xl md:text-3xl">Order List</CardTitle>

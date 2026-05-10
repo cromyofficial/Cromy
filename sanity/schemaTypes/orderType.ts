@@ -70,6 +70,11 @@ export const orderType = defineType({
               to: [{ type: "product" }],
             }),
             defineField({
+              name: "size",
+              title: "Size",
+              type: "string",
+            }),
+            defineField({
               name: "quantity",
               title: "Quantity Purchased",
               type: "number",
@@ -79,18 +84,20 @@ export const orderType = defineType({
             select: {
               product: "product.name",
               quantity: "quantity",
+              size: "size",
               image: "product.images.0",
               price: "product.price",
               currency: "product.currency",
             },
             prepare(select) {
+              const sizeLabel = select.size ? ` [${select.size}]` : "";
               return {
-                title: `${select.product} x ${select.quantity}`,
+                title: `${select.product}${sizeLabel} x ${select.quantity}`,
                 subtitle: `${select.price * select.quantity}`,
                 media: select.image,
               };
             },
-          }, 
+          },
         }),
       ],
     }),

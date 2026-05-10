@@ -1,6 +1,8 @@
 import { TrolleyIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
+const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"] as const;
+
 export const productType = defineType({
   name: "product",
   title: "Products",
@@ -58,10 +60,55 @@ export const productType = defineType({
       of: [{ type: "reference", to: { type: "category" } }],
     }),
     defineField({
-      name: "stock",
-      title: "Stock",
-      type: "number",
-      validation: (Rule) => Rule.min(0),
+      name: "sizes",
+      title: "Sizes & Stock",
+      description:
+        "Add each size you carry and the stock available for that size. Total stock is derived from this list.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "sizeStock",
+          title: "Size Stock",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Size",
+              type: "string",
+              options: {
+                list: SIZE_OPTIONS.map((s) => ({ title: s, value: s })),
+                layout: "radio",
+                direction: "horizontal",
+              },
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "stock",
+              title: "Stock",
+              type: "number",
+              validation: (Rule) => Rule.required().min(0).integer(),
+            }),
+          ],
+          preview: {
+            select: { title: "name", subtitle: "stock" },
+            prepare: ({ title, subtitle }) => ({
+              title: `Size ${title}`,
+              subtitle: `${subtitle ?? 0} in stock`,
+            }),
+          },
+        },
+      ],
+      validation: (Rule) =>
+        Rule.custom((sizes) => {
+          if (!sizes || !Array.isArray(sizes)) return true;
+          const names = sizes
+            .map((s) => (s as { name?: string }).name)
+            .filter(Boolean) as string[];
+          const dupes = names.filter((n, i) => names.indexOf(n) !== i);
+          return dupes.length
+            ? `Duplicate sizes: ${[...new Set(dupes)].join(", ")}`
+            : true;
+        }),
     }),
 
     defineField({
@@ -83,10 +130,10 @@ export const productType = defineType({
       options: {
         list: [
           { title: "Comfort fit", value: "Comfort fit" },
-  { title: "Straight fit", value: "Straight fit" },
-  { title: "Mom fit", value: "Mom fit" },
-  { title: "Cargo", value: "Cargo" },
-  { title: "Tshirt", value: "Tshirt" },
+          { title: "Straight fit", value: "Straight fit" },
+          { title: "Mom fit", value: "Mom fit" },
+          { title: "Cargo", value: "Cargo" },
+          { title: "Tshirt", value: "Tshirt" },
         ],
       },
     }),
@@ -102,7 +149,7 @@ export const productType = defineType({
       const image = media && media[0];
       return {
         title: title,
-        subtitle: `$${subtitle}`,
+        subtitle: `₹${subtitle}`,
         media: image,
       };
     },

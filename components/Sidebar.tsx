@@ -4,14 +4,14 @@ import Logo from "./Logo";
 import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import { headerData } from "@/constant";
-import { CATEGORIES_QUERYResult, Category } from "@/sanity.types";
+import { CATEGORIES_QUERY_RESULT, Category } from "@/sanity.types";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import SocialMedia from "./SocialMedia";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 interface SidebarProps {
-  categories: CATEGORIES_QUERYResult;
+  categories: CATEGORIES_QUERY_RESULT;
   isOpen: boolean;
   onClose: () => void;
 }

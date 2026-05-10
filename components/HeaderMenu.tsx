@@ -1,10 +1,10 @@
 "use client";
-import { CATEGORIES_QUERYResult, } from "@/sanity.types";
+import { CATEGORIES_QUERY_RESULT, } from "@/sanity.types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const HeaderMenu = ({ categories }: { categories: CATEGORIES_QUERYResult }) => {
+const HeaderMenu = ({ categories }: { categories: CATEGORIES_QUERY_RESULT }) => {
   const pathname = usePathname();
 
   return (

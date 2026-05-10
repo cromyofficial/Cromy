@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm install mongoose bcryptjs jose)",
+      "PowerShell(npm install -D @types/bcryptjs)",
+      "PowerShell(npm run typegen 2>&1)",
+      "Bash(findstr /I env)",
+      "PowerShell(npx tsc --noEmit 2>&1)",
+      "PowerShell(git stash)",
+      "PowerShell(git stash pop)",
+      "PowerShell(npx tsc --noEmit; \"exit=$LASTEXITCODE\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\SBC\\\\Desktop\\\\newpullcromy\\\\Cromy\" -Directory)",
+      "Bash(Select-Object Name)"
+    ]
+  }
+}

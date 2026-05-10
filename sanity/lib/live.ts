@@ -12,9 +12,11 @@ if (!token) {
 
 export const { sanityFetch, SanityLive } = defineLive({
   client,
-  serverToken : token,
-  browserToken :token,
-  fetchOptions :{
-    revalidate: 0,
+  serverToken: token,
+  browserToken: token,
+  fetchOptions: {
+    // Cache for 60 s. Products and categories change rarely; avoids hitting
+    // Sanity on every single request. Update to 0 only during active editing.
+    revalidate: 60,
   },
 });

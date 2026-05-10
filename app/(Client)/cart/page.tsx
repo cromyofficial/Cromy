@@ -47,6 +47,8 @@ const CartPage = () => {
     getSubTotalPrice,
     resetCart,
     getGroupedItems,
+    setPendingOrder,
+    buildPendingOrder,
   } = useCartStore();
 
   useEffect(() => setIsClient(true), []);
@@ -60,27 +62,37 @@ const CartPage = () => {
     }
   };
 
-  const handleDeleteProduct = (id: string) => {
-    deleteCartProduct(id);
+  const handleDeleteProduct = (id: string, size?: string) => {
+    deleteCartProduct(id, size);
     toast.success("Product deleted successfully!");
   };
 
   // Redirect to payment/checkout. Keep popup visible until navigation.
-  const handleCheckout = async () => {
+  const handleCheckout = async (contactInfo?: { name: string; mobile: string; address: string }) => {
     if (loading) return;
     setLoading(true);
     try {
-      const metadata = {
-        orderNumber: crypto.randomUUID(),
-        customerName: user?.fullName ?? "unknown",
-        customerEmail: user?.emailAddresses[0]?.emailAddress ?? "unknown",
-        clerkUserId: user!.id,
-      };
+      const orderNumber = crypto.randomUUID();
+      const customerName = contactInfo?.name || user?.fullName || "Unknown";
+      const customerEmail = user?.emailAddresses[0]?.emailAddress ?? "unknown";
+      const clerkUserId = user!.id;
+
+      // Snapshot cart before reset so success page can persist the order
+      const snapshot = buildPendingOrder({
+        orderNumber,
+        clerkUserId,
+        customerName,
+        customerEmail,
+        customerPhone: contactInfo?.mobile,
+        address: contactInfo?.address,
+      });
+      setPendingOrder(snapshot);
+
+      const metadata = { orderNumber, customerName, customerEmail, clerkUserId };
       const checkoutUrl = await createCheckoutSession(cartProducts, metadata);
       if (checkoutUrl) {
-         resetCart();
-        window.location.href = checkoutUrl; // navigation will replace the page
-
+        resetCart();
+        window.location.href = checkoutUrl;
       } else {
         toast.error("Could not start checkout.");
         setLoading(false);
@@ -107,7 +119,11 @@ const CartPage = () => {
 
       if (res.ok) {
         toast.success("Details sent successfully!");
-        await handleCheckout(); // this sets loading and navigates
+        await handleCheckout({
+          name: contactData.name,
+          mobile: contactData.mobile,
+          address: contactData.message,
+        });
       } else {
         toast.error("Failed to send details.");
       }
@@ -115,7 +131,6 @@ const CartPage = () => {
       console.error(err);
       toast.error("Something went wrong!");
     } finally {
-      // it's okay if we navigate before this runs
       setSending(false);
     }
   };
@@ -158,11 +173,12 @@ const CartPage = () => {
                 {/* Product Section */}
                 <div className="lg:col-span-2 rounded-lg">
                   <div className="border bg-white rounded-md">
-                    {cartProducts.map(({ product }: any) => {
-                      const itemCount = getItemCount(product?._id);
+                    {cartProducts.map(({ product, size }: any) => {
+                      const itemCount = getItemCount(product?._id, size);
+                      const lineKey = `${product?._id}::${size ?? ""}`;
                       return (
                         <div
-                          key={product?._id}
+                          key={lineKey}
                           className="border-b p-2.5 last:border-b-0 flex flex-col md:flex-row md:items-center justify-between gap-3"
                         >
                           <div className="flex flex-col md:flex-row flex-1 items-start md:items-center gap-3 mt-2 md:mt-auto lg:auto">
@@ -173,7 +189,7 @@ const CartPage = () => {
                               >
                                 <Image
                                   src={urlFor(product?.images[0]).url()}
-                                  alt="productImage"
+                                  alt={product?.name ?? "product"}
                                   width={500}
                                   height={500}
                                   loading="lazy"
@@ -188,6 +204,11 @@ const CartPage = () => {
                                 <p className="text-sm capitalize">
                                   Variant: <span className="font-semibold">{product?.variant}</span>
                                 </p>
+                                {size && (
+                                  <p className="text-sm">
+                                    Size: <span className="font-semibold">{size}</span>
+                                  </p>
+                                )}
                                 <p className="text-sm capitalize">
                                   Status: <span className="font-semibold">{product?.status}</span>
                                 </p>
@@ -203,7 +224,7 @@ const CartPage = () => {
                                   <Tooltip>
                                     <TooltipTrigger>
                                       <Trash
-                                        onClick={() => handleDeleteProduct(product?._id)}
+                                        onClick={() => handleDeleteProduct(product?._id, size)}
                                         className="h-4 w-4 md:w-5 md:h-5 hover:text-red-600 hoverEffect"
                                       />
                                     </TooltipTrigger>
@@ -216,7 +237,7 @@ const CartPage = () => {
                             </div>
                             <div>
                               <PriceFormatter amount={product?.price * itemCount} className="font-bold text-lg font-sans" />
-                              <QuantityButtons product={product} />
+                              <QuantityButtons product={product} size={size} />
                             </div>
                           </div>
                         </div>

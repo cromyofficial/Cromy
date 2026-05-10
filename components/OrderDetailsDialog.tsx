@@ -1,4 +1,4 @@
-import { MY_ORDERS_QUERYResult } from '@/sanity.types'
+import { MY_ORDERS_QUERY_RESULT } from '@/sanity.types'
 import React, { FC } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 
 interface Props{
-  order : MY_ORDERS_QUERYResult[number] | null ,
+  order : MY_ORDERS_QUERY_RESULT[number] | null ,
   isOpen : boolean,
   onClose: ()=> void
 }

@@ -1,5 +1,5 @@
 "use client"
-import { CATEGORIES_QUERYResult, Product } from "@/sanity.types";
+import { CATEGORIES_QUERY_RESULT, Product } from "@/sanity.types";
 import React, { useEffect, useState } from "react";
 import { Button } from "./button";
 import { client } from "@/sanity/lib/client";
@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import ProductCard from "../ProductCard";
 import NoProductAvailable from "../NoProductAvailable";
 interface Props {
-  categories: CATEGORIES_QUERYResult;
+  categories: CATEGORIES_QUERY_RESULT;
   slug: string;
 }
 const CategoryProducts = ({ categories, slug }: Props) => {

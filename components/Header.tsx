@@ -4,22 +4,22 @@ import HeaderMenu from "./HeaderMenu";
 import Logo from "./Logo";
 import Container from "./Container";
 import CartIcon from "./CartIcon";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { ClerkLoaded, SignedIn, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { ListOrdered } from "lucide-react";
-import { getAllCategories, getMyOrders } from "@/sanity/helpers/queries";
+import { LayoutDashboard } from "lucide-react";
+import { getAllCategories, getOrderCount } from "@/sanity/helpers/queries";
 import { MobileMenu } from "./MobileMenu";
 import { SearchBar } from "./SearchBar";
 
 const Header = async () => {
-  const user = await currentUser();
   const { userId } = await auth();
-  const categories = await getAllCategories();
-  let orders = null;
-  if (userId) {
-    orders = await getMyOrders(userId);
-  }
+
+  const [categories, orderCount] = await Promise.all([
+    getAllCategories(),
+    userId ? getOrderCount(userId) : Promise.resolve(0),
+  ]);
+
   return (
     <header className="border-b border-b-gray-400 py-5 sticky top-0 z-50 bg-white">
       <Container className="flex items-center justify-between gap-7 text-lightColor">
@@ -34,15 +34,17 @@ const Header = async () => {
 
           <ClerkLoaded>
             <SignedIn>
-              <Link href={"/orders"} className="group relative">
-                <ListOrdered className="w-5 h-5 group-hover:text-darkColor hoverEffect" />
-                <span className="absolute -top-1 -right-1 bg-darkColor text-white h-3.5 w-3.5 rounded-full text-xs font-semibold flex items-center justify-center">
-                  {orders?.length ? orders?.length : 0}
-                </span>
+              <Link href={"/dashboard"} className="group relative" title="My Dashboard">
+                <LayoutDashboard className="w-5 h-5 group-hover:text-darkColor hoverEffect" />
+                {orderCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-darkColor text-white h-3.5 w-3.5 rounded-full text-xs font-semibold flex items-center justify-center">
+                    {orderCount}
+                  </span>
+                )}
               </Link>
               <UserButton />
             </SignedIn>
-            {!user && (
+            {!userId && (
               <SignInButton mode="modal">
                 <button className="text-sm font-semibold hover:text-darkColor hoverEffect">
                   Login

@@ -1,10 +1,10 @@
 "use client";
 import { AlignLeft } from "lucide-react";
-import { CATEGORIES_QUERYResult, Category } from "@/sanity.types";
+import { CATEGORIES_QUERY_RESULT, Category } from "@/sanity.types";
 import {Sidebar} from "./Sidebar";
 import React, { useState } from "react";
 
-export const MobileMenu = ({ categories }: { categories: CATEGORIES_QUERYResult }) => {
+export const MobileMenu = ({ categories }: { categories: CATEGORIES_QUERY_RESULT }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
