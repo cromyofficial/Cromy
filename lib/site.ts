@@ -1,5 +1,5 @@
 const rawUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cromy.in";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://cromy.in";
 
 export const siteConfig = {
   name: "Cromy",
