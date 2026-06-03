@@ -4,7 +4,7 @@ import Loading from '@/components/Loading'
 const loading = () => {
   return (
     <div>
-      <Loading/>;
+      <Loading />
     </div>
   )
 }
