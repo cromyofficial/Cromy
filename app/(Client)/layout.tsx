@@ -88,10 +88,35 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
+    alternateName: ["Cromy Jeans", "Cromy Official", "Cromy Clothing"],
     url: siteConfig.url,
     logo: `${siteConfig.url}/favicon.ico`,
-    sameAs: [`https://twitter.com/${siteConfig.twitterHandle.replace("@", "")}`],
+    description: siteConfig.description,
+    sameAs: [
+      "https://www.instagram.com/cromy_jeans",
+      "https://www.facebook.com/share/16M2wrrT4m/",
+      `https://twitter.com/${siteConfig.twitterHandle.replace("@", "")}`,
+    ],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
+    name: siteConfig.name,
+    alternateName: "Cromy Jeans",
+    url: siteConfig.url,
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteConfig.url}/product?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 
   return (
@@ -100,6 +125,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Providers>
           <Header />
